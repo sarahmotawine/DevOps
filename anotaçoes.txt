@@ -1,0 +1,53 @@
+Criar atalhos no comando:
+alias k = "kubectl"
+
+Listar namespaces no cluster:
+k get ns
+
+Criar POD:
+k run "nginx" --image "nginx"
+
+
+Secrets: Um secret é um objeto que contém uma pequena quantidade de informação sensível, como senhas, tokens oou chaves.
+
+ConfigMaps: Usado para armazenar dados não-confidenciais em pares chave-valor.
+
+Deployment: Responsável por gerenciar os Pods. Se um Pod morrer, o Deployment irá criar um novo Pod para substituí-lo.
+
+Services: Abstração que define um conjunto lógico de Pods e uma política para acessá-los.
+Tipos: ClustertIP / NodePort / LoadBalancer / ExternalName
+
+
+
+
+Como instalar o helm/chart:
+helm upgrade --install my-nginx ./generic-app -f values.yaml
+
+
+Atualizando para postgres:
+helm upgrade --install postgres-sarah ./generic-app -f values.yaml
+                      *nome aplicação* 
+
+
+
+Conectar com SQL:
+kubectl port-forward service/mongo 28015:27017
+
+Ler no terminal:
+k get deploy -o yaml postgres-sarah
+
+
+DockerHub, como construir imagens:
+
+Estar dentro do repositório da imagem, comandos:
+
+BUILD DE UMA IMAGEM:
+docker build -t sarahmota(nome repositório)/docker-push(nome imagem):python(tag) .
+docker push sarahmota/docker-push:python
+
+Diagnóstico de Problemas:
+k logs sarah-65db58557b-q9gvk(nome do Pod)
+
+CONECTAR LOCALHOST:
+python3 -i app.py(nome da aplicação) - Lembrar de dar o comando dentro da pasta do arquivo
+

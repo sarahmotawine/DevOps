@@ -1,0 +1,94 @@
+# Default values for example.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# application
+app:
+  servicePort: 5000
+  containerPort: 5000
+
+Replicas: 3
+
+# deployment
+deployment:
+  memoryRequest: 100Mi
+  cpuRequest: 100m
+  memoryLimit: 100Mi
+  cpuLimit: 100m
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+
+# container
+image:
+  repository:
+    name: sarahmota
+    isPrivate: false
+    secretName: null
+  name: factorial
+  tag: number
+  pullPolicy: Always
+
+# ingress
+ingress:
+  enabled: false
+  hostName: null
+  sslRedirect: false
+  nginxController: false
+  certManager:
+    enabled: false
+    clusterIssuerName: letsecnrypt
+
+# env variables
+variables:
+  secret:
+    DB_USER: sarah
+    DB_PASSWORD: sarah
+    DB_DATABASE: sarah
+  nonSecret:
+    DB_HOST: sarahh-postgres-postgresql.default.svc
+    DB_PORT: 5432
+
+# horizontal autoscaler
+hpa:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 5
+  avgCpuUtilization: 20
+
+# startupProbe
+startupProbe:
+  enabled: false
+  httpGet:
+    path: "/"
+  periodSeconds: 10
+  failureThreshold: 20
+  timeoutSeconds: 1
+
+# readinessProbe
+readinessProbe:
+  enabled: false
+  httpGet:
+    path: "/"
+  initialDelaySeconds: 20
+  periodSeconds: 30
+  failureThreshold: 2
+  timeoutSeconds: 3
+
+# livenessProbe
+livenessProbe:
+  enabled: false
+  httpGet:
+    path: "/"
+  initialDelaySeconds: 20
+  periodSeconds: 60
+  failureThreshold: 1
+  timeoutSeconds: 3
+
+# pdb
+pdb:
+  enabled: true
+  maxUnavailable: 1
+  minAvailable: 1
